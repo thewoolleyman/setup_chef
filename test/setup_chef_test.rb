@@ -3,11 +3,11 @@ require 'test/unit'
 require 'fileutils'
 
 class SetupChefTest < Test::Unit::TestCase
-  def test_prompts
-    assert_equal 'foo', sc(['foo']).readlines.first.strip
+  def test_help
+    assert_match /Usage/, runit([], ['--help']).readlines.first
   end
 
-  def sc(args)
+  def runit(input, args = [])
     cmd = 'sh setup_chef ' + args.join(' ')
     FileUtils.cd(File.dirname(__FILE__) + '/..') do
       return IO.popen(cmd)
